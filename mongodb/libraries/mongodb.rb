@@ -48,7 +48,7 @@ class Chef::ResourceDefinitionList::MongoDB
     rs_members = []
     members.each_index do |n|
       port = members[n]['mongodb']['port']
-      rs_members << {"_id" => n, "host" => "#{members[n]['fqdn']}:#{port}"}
+      rs_members << {"_id" => n, "host" => "#{members[n]['fqdn'] || members[n]['ipaddress']}:#{port}"}
     end
     
     Chef::Log.info(
