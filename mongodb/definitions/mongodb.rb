@@ -162,6 +162,11 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
        mongodb_shard_name:#{replicaset['mongodb']['shard_name']} AND \
        chef_environment:#{replicaset.chef_environment}"
     )
+    
+    # Always add ourselves
+    unless (rs_nodes.include? node)
+      rs_nodes << node
+    end
   
     ruby_block "config_replicaset" do
       block do
